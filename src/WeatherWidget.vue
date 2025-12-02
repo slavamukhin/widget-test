@@ -4,10 +4,6 @@ import { getUserLocation } from './getUserLocation'
 import { fetchWeatherByCoords } from './weatherApi'
 import WeatherCard from './WeatherCard.vue'
 import { WeatherData } from './types'
-import 'primeicons/primeicons.css';
-import '@primeuix/themes/saga-blue/theme.css';
-import 'primevue/card/styles.css';
-import 'primevue/divider/styles.css';
 
 const weather = ref<WeatherData>()
 const loading = ref(true)
