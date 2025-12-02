@@ -5,7 +5,7 @@ import Divider from 'primevue/divider'
 import { WeatherData } from './types'
 
 const props = defineProps<{ weather: WeatherData }>()
-const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.weather.weather.icon}@2x.png`)
+const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.weather.weather[0].icon}@2x.png`)
 
 watchEffect(() => {
   console.log('WeatherCard props.weather', props.weather)
@@ -23,7 +23,7 @@ watchEffect(() => {
       </div>
 
       <div class="card-weather-feel">
-        Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather.description }}
+        Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather[0].description }}
       </div>
 
       <Divider />
