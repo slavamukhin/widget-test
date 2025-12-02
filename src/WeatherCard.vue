@@ -2,36 +2,36 @@
 import { computed } from 'vue'
 import { WeatherData } from './types'
 
-const props = defineProps<{ weather: WeatherData }>()
-const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.weather.weather[0].icon}@2x.png`)
+const { weather } = defineProps<{ weather: WeatherData }>()
+const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`)
 </script>
 
 <template>
   <div class="weather-card">
     <div class="card-title">
-      {{ props.weather.name }}, {{ props.weather.sys.country }}
+      {{ weather.name }}, {{ weather.sys.country }}
     </div>
 
     <div class="card-weather">
       <div class="card-weather-temp">
         <img :src="weatherIcon" alt="weather icon" />
-        <div class="temp-data">{{ props.weather.main.temp }}°C</div>
+        <div class="temp-data">{{ weather.main.temp }}°C</div>
       </div>
 
       <div class="card-weather-feel">
-        Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather[0].main }}, {{ props.weather.weather[0].description }}
+        Feels like {{ weather.main.feels_like }}°C. {{ weather.weather[0].main }}, {{ weather.weather[0].description }}
       </div>
 
       <div class="card-divider"></div>
 
       <div class="card-weather-params">
         <div>
-          <div>Wind: {{ props.weather.wind.speed }}m/s</div>
-          <div>Visibility: {{ (props.weather.visibility / 1000).toFixed() }}km</div>
+          <div>Wind: {{ weather.wind.speed }}m/s</div>
+          <div>Visibility: {{ (weather.visibility / 1000).toFixed() }}km</div>
         </div>
         <div>
-          <div>Pressure: {{ props.weather.main.pressure }}hPa</div>
-          <div>Humidity : {{ props.weather.main.humidity  }}%</div>
+          <div>Pressure: {{ weather.main.pressure }}hPa</div>
+          <div>Humidity : {{ weather.main.humidity  }}%</div>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
 
 <style scoped>
 .weather-card {
-  width: 200px;
+  width: 250px;
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: #dfdfdf;
