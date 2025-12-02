@@ -3,7 +3,7 @@
 
 [Demo repo](https://github.com/slavamukhin/widget-demo)
 
-# usage
+# Usage
 ```html
   <weather-widget></weather-widget>
   <script type="text/javascript" src="https://slavamukhin.github.io/widget-test/weather-widget.iife.js"></script>
