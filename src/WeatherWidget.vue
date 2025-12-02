@@ -39,8 +39,18 @@ const onSelectedCity = async (city: CityResult) => {
 }
 
 const onRemoveCity = (data: CityResult): void => {
-  cityList.value = cityList.value.filter(city => city.country !== data.country && city.name !== data.name)
-  weatherList.value = weatherList.value.filter(weather => weather.name !== data.name && weather.sys.country !== data.country)
+  cityList.value = cityList.value.filter(city =>
+    city.country !== data.country &&
+    city.name !== data.name &&
+    city.lat !== data.lat &&
+    city.lon !== data.lon
+  )
+  weatherList.value = weatherList.value.filter(weather =>
+    weather.name !== data.name &&
+    weather.sys.country !== data.country &&
+    weather.coord.lat !== data.lat &&
+    weather.coord.lon !== data.lon
+  )
 }
 
 window.addEventListener('beforeunload', saveToLS)
