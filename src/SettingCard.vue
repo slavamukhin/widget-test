@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineEmits } from 'vue'
+import CitySearch from './CitySearch.vue'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -23,6 +24,8 @@ const emit = defineEmits<{
       <div>Настройка 2</div>
       <div>Настройка 3</div>
     </div>
+
+    <CitySearch />
   </div>
 </template>
 

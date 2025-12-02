@@ -6,3 +6,11 @@ export interface WeatherData {
   wind: { speed: number }
   visibility: number
 }
+
+export interface CityResult {
+  name: string
+  lat: number
+  lon: number
+  country: string
+  state?: string
+}
