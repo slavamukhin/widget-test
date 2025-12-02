@@ -49,7 +49,9 @@ function selectCity(city: CityResult) {
 
 <template>
   <div class="city-search">
+    <label for="citySearch">Add location</label>
     <input
+      id="citySearch"
       v-model="query"
       @input="debouncedSearch(query)"
       @focus="query && suggestions.length && (showList = true)"
@@ -89,6 +91,7 @@ function selectCity(city: CityResult) {
   border-radius: 6px;
   border: 1px solid #bbb;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .suggestions {
