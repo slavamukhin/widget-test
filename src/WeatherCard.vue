@@ -25,9 +25,14 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
       <div class="card-divider"></div>
 
       <div class="card-weather-params">
-        <div>Wind: {{ props.weather.wind.speed }} m/s</div>
-        <div>Pressure: {{ props.weather.main.pressure }} hPa</div>
-        <div>Visibility: {{ (props.weather.visibility / 1000).toFixed(1) }} km</div>
+        <div>
+          <div>Wind: {{ props.weather.wind.speed }}m/s</div>
+          <div>Visibility: {{ (props.weather.visibility / 1000).toFixed() }}km</div>
+        </div>
+        <div>
+          <div>Pressure: {{ props.weather.main.pressure }}hPa</div>
+          <div>Humidity : {{ props.weather.main.humidity  }}%</div>
+        </div>
       </div>
     </div>
   </div>
@@ -85,7 +90,8 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
 
 .card-weather-params {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 0.3rem;
   font-size: 0.85rem;
   color: #333;
