@@ -10,7 +10,7 @@ export default defineConfig({
       fileName: 'weather-widget',
       formats: ['iife']
     },
-    minify: 'terser',
+    minify: 'esbuild',
     target: 'es2017',
     sourcemap: false,
     cssCodeSplit: false,
