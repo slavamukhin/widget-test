@@ -14,7 +14,7 @@ const loading = ref(true)
 const error = ref<string | null>(null)
 const settingsVisible = ref(false)
 
-const saveToLS = () => {
+const saveToLS = (): void => {
   localStorage.setItem(CYTY_LIST, JSON.stringify(cityList.value))
 }
 
@@ -36,6 +36,11 @@ const onSelectedCity = async (city: CityResult) => {
   }
 
   await loadWeather(city.lat, city.lon)
+}
+
+const onRemoveCity = (data: CityResult): void => {
+  cityList.value = cityList.value.filter(city => city.country !== data.country && city.name !== data.name)
+  weatherList.value = weatherList.value.filter(weather => weather.name !== data.name && weather.sys.country !== data.country)
 }
 
 window.addEventListener('beforeunload', saveToLS)
@@ -81,16 +86,9 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', saveToLS))
         <WeatherCard :weather="weather" />
       </div>
 
-      <SettingsButton
-        v-if="!settingsVisible"
-        @click="settingsVisible = true"
-      />
+      <SettingsButton v-if="!settingsVisible" @click="settingsVisible = true" />
 
-      <SettingCard
-        v-if="settingsVisible"
-        @close="settingsVisible = false"
-        @select="onSelectedCity"
-      />
+      <SettingCard :city-list="cityList" v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" @remove="onRemoveCity" />
     </div>
   </div>
 </template>
@@ -99,7 +97,7 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', saveToLS))
 .weather-widget-wrapper {
   padding: 10px;
   border: 1px solid #ccc;
-  width: 260px;
+  width: 300px;
   font-family: sans-serif;
 }
 
@@ -113,9 +111,5 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', saveToLS))
 
 .weather-card-wrapper:last-child {
   margin-bottom: 0;
-}
-
-* {
-  box-sizing: border-box;
 }
 </style>

@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { defineEmits } from 'vue'
+import { defineEmits, defineProps } from 'vue'
 import CitySearch from './CitySearch.vue'
-import { CityResult } from './types';
+import type { CityList, CityResult } from './types'
+
+const props = defineProps<{
+  cityList: CityList[]
+}>()
 
 const emit = defineEmits<{
   (e: 'close'): void
   (e: 'select', city: CityResult): void
+  (e: 'remove', city: CityList): void
 }>()
+
+const removeCity = (city: CityList) => {
+  emit('remove', city)
+}
 </script>
 
 <template>
@@ -14,20 +23,53 @@ const emit = defineEmits<{
     <div class="card-header">
       <div class="card-title">Settings</div>
       <button class="close-button" @click="$emit('close')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+             viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
       </button>
     </div>
 
-    <div class="card-content">
-      <div>Настройка 1</div>
-      <div>Настройка 2</div>
-      <div>Настройка 3</div>
+    <div class="city-list">
+      <div
+        class="city-item"
+        v-for="city in cityList"
+        :key="city.name + city.country + city.lat + city.lon"
+      >
+        <div class="drag-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+               viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="1"/>
+            <circle cx="12" cy="12" r="1"/>
+            <circle cx="12" cy="19" r="1"/>
+          </svg>
+        </div>
+
+        <div class="city-info">
+          <div class="name">{{ city.name }}</div>
+          <div class="country">{{ city.country }}</div>
+        </div>
+
+        <button class="remove-button" @click="removeCity(city)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+               viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14H6L5 6"/>
+            <path d="M10 11v6"/>
+            <path d="M14 11v6"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
-    <CitySearch @select="$emit('select', $event)"/>
+    <CitySearch @select="$emit('select', $event)" />
   </div>
 </template>
 
@@ -48,7 +90,7 @@ const emit = defineEmits<{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .card-title {
@@ -61,25 +103,66 @@ const emit = defineEmits<{
   background: transparent;
   cursor: pointer;
   padding: 0;
-  display: flex;
-  align-items: center;
 }
 
 .close-button svg {
-  width: 20px;
-  height: 20px;
   stroke: #333;
 }
-
 .close-button:hover svg {
   stroke: red;
 }
 
-.card-content {
+.city-list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: #333;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.city-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+  gap: 10px;
+}
+
+.drag-icon {
+  cursor: grab;
+  padding: 4px;
+  opacity: 0.6;
+}
+
+.city-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.country {
+  font-size: 12px;
+  color: #666;
+}
+
+.remove-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.remove-button svg {
+  stroke: #444;
+}
+
+.remove-button:hover svg {
+  stroke: #d11;
 }
 </style>
