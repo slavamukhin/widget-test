@@ -67,7 +67,7 @@ function selectCity(city: CityResult) {
         @click="selectCity(city)"
         class="suggestion-item"
       >
-        <div class="name">{{ city.name }}</div>
+        <div class="name">{{ city.name }}, {{ city.country }}</div>
         <div class="meta">
           <span>{{ city.country }}</span>
           <span v-if="city.state">, {{ city.state }}</span>
