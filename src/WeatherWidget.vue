@@ -37,7 +37,7 @@ onMounted(async () => {
   <div class="weather-widget-wrapper">
     <div v-if="loading">Loading...</div>
     <div v-else-if="error">{{ error }}</div>
-    <div v-else>
+    <div v-else class="weather-widget">
       <WeatherCard :weather="weather as WeatherData" />
       <SettingsButton v-if="!settingsVisible" @click="settingsVisible = true" />
       <SettingCard v-if="settingsVisible" @close="settingsVisible = false" />
@@ -51,12 +51,9 @@ onMounted(async () => {
   border: 1px solid #ccc;
   width: 260px;
   font-family: sans-serif;
-  position: relative;
 }
 
-.widget-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
+.weather-widget {
+  position: relative;
 }
 </style>

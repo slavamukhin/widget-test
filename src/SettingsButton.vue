@@ -32,6 +32,9 @@ const emit = defineEmits<{
   padding: 4px;
   border-radius: 4px;
   transition: background 0.2s;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 .settings-button:hover {
