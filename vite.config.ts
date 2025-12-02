@@ -3,9 +3,6 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue({ customElement: true })],
-  define: {
-      'process.env.NODE_ENV': '"production"'
-  },
   build: {
     lib: {
       entry: 'src/main.ts',
@@ -13,8 +10,9 @@ export default defineConfig({
       fileName: 'weather-widget',
       formats: ['iife']
     },
-    rollupOptions: {
-      external: [],
-    }
+    minify: 'terser',
+    target: 'es2017',
+    sourcemap: false,
+    cssCodeSplit: false,
   }
 })
