@@ -2,19 +2,9 @@
 import { computed } from 'vue'
 import Card from 'primevue/card'
 import Divider from 'primevue/divider'
+import { WeatherData } from './types'
 
-interface WeatherData {
-  name: string
-  sys: { country: string }
-  weather: { description: string; icon: string }
-  main: { temp: number; feels_like: number; pressure: number }
-  wind: { speed: number }
-  visibility: number
-}
-
-// Пропсы для компонента
 const props = defineProps<{ weather: WeatherData }>()
-
 const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.weather.weather.icon}@2x.png`)
 </script>
 

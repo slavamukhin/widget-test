@@ -2,10 +2,12 @@
 import { ref, onMounted } from 'vue'
 import { getUserLocation } from './getUserLocation'
 import { fetchWeatherByCoords } from './weatherApi'
+import WeatherCard from './WeatherCard.vue'
+import { WeatherData } from './types'
 
-const weather = ref<any>(null)
+const weather = ref<WeatherData>()
 const loading = ref(true)
-const error = ref<string | null>(null)
+const error = ref<string>('')
 
 onMounted(async () => {
   try {
@@ -28,8 +30,7 @@ onMounted(async () => {
     <div v-if="loading">Loading...</div>
     <div v-else-if="error">{{ error }}</div>
     <div v-else>
-      <p>Погода будет здесь:</p>
-      {{ JSON.stringify(weather) }}
+      <WeatherCard :weather="weather as WeatherData"/>
     </div>
   </div>
 </template>
