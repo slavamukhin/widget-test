@@ -36,9 +36,4 @@ onMounted(async () => {
 </template>
 
 <style>
-.weather-widget-wrapper {
-  padding: 10px;
-  border: 1px solid #ccc;
-  width: 200px;
-}
 </style>
