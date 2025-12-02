@@ -33,9 +33,9 @@ const onSelectedCity = async (city: CityResult) => {
       lat: city.lat,
       lon: city.lon
     })
-  }
 
-  await loadWeather(city.lat, city.lon)
+     await loadWeather(city.lat, city.lon)
+  }
 }
 
 const onRemoveCity = (data: CityResult): void => {
