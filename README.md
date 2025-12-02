@@ -1,7 +1,7 @@
 # Widget-test
-[bundle link](https://slavamukhin.github.io/widget-test/weather-widget.iife.js)
+[Bundle link](https://slavamukhin.github.io/widget-test/weather-widget.iife.js)
 
-[demo repo](https://github.com/slavamukhin/widget-demo)
+[Demo repo](https://github.com/slavamukhin/widget-demo)
 
 # usage
 ```html
