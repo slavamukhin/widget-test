@@ -42,7 +42,7 @@ const debouncedSearch = debounce(fetchCities, 400)
 
 function selectCity(city: CityResult) {
   emit("select", city)
-  query.value = city.name
+  query.value = ''
   showList.value = false
 }
 </script>

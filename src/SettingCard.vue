@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { defineEmits } from 'vue'
 import CitySearch from './CitySearch.vue'
+import { CityResult } from './types';
 
 const emit = defineEmits<{
   (e: 'close'): void
+  (e: 'select', city: CityResult): void
 }>()
 </script>
 
@@ -25,7 +27,7 @@ const emit = defineEmits<{
       <div>Настройка 3</div>
     </div>
 
-    <CitySearch />
+    <CitySearch @select="$emit('select', $event)"/>
   </div>
 </template>
 

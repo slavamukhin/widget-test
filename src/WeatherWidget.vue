@@ -5,16 +5,15 @@ import { fetchWeatherByCoords } from './weatherApi'
 import WeatherCard from './WeatherCard.vue'
 import SettingsButton from './SettingsButton.vue'
 import SettingCard from './SettingCard.vue'
-import { WeatherData } from './types'
+import { CityResult, WeatherData } from './types'
 
 const weather = ref<WeatherData>()
 const loading = ref(true)
 const error = ref<string | null>(null)
 const settingsVisible = ref(false)
 
-const onSettingsClick = () => {
-  console.log('Settings button clicked!')
-  // здесь можно открыть настройки виджета
+const onSelectedCity = (city: CityResult) => {
+  console.log('Выбранный город:', city)
 }
 
 onMounted(async () => {
@@ -40,7 +39,7 @@ onMounted(async () => {
     <div v-else class="weather-widget">
       <WeatherCard :weather="weather as WeatherData" />
       <SettingsButton v-if="!settingsVisible" @click="settingsVisible = true" />
-      <SettingCard v-if="settingsVisible" @close="settingsVisible = false" />
+      <SettingCard v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" />
     </div>
   </div>
 </template>
