@@ -30,52 +30,24 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
-        passes: 2,
-        unsafe: true,
-        unsafe_math: true,
-        unsafe_methods: true,
-        unsafe_proto: true,
-        unsafe_undefined: true,
-        dead_code: true,
-        join_vars: true,
-        collapse_vars: true,
-        reduce_vars: true
-      },
-      mangle: {
-        toplevel: true,
-        safari10: false,
-        properties: {
-          regex: /^_/
-        }
+        pure_funcs: ['console.log'],
+        passes: 2
       },
       format: {
-        comments: false,
-        beautify: false,
-        preamble: '/* WeatherWidget - minified */'
+        comments: false
       }
     },
     cssCodeSplit: false,
     sourcemap: false,
-    reportCompressedSize: true,
-    chunkSizeWarningLimit: 1000,
-    emptyOutDir: true,
+    // УБЕРИТЕ external или закомментируйте:
     rollupOptions: {
-      external: ['vue'],
+      // external: ['vue'], // ← УДАЛИТЬ или ЗАКОММЕНТИРОВАТЬ!
       output: {
-        globals: {
-          vue: 'Vue'
-        },
-        compact: true,
-        generatedCode: {
-          arrowFunctions: true,
-          constBindings: true
-        },
-        indent: false,
-        semicolons: false
+        // globals: { // ← УДАЛИТЬ если убрали external
+        //   vue: 'Vue'
+        // },
+        compact: true
       }
-    },
-    modulePreload: false,
-    assetsInlineLimit: 4096
+    }
   }
 })
