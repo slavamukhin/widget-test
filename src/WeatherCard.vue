@@ -22,7 +22,7 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
         </div>
 
         <div class="card-weather-feel">
-          Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather[0].description }}
+          Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather[0].main }}, {{ props.weather.weather[0].description }}
         </div>
 
         <Divider />
