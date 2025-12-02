@@ -32,8 +32,6 @@ onMounted(async () => {
     <div v-else>
       <WeatherCard :weather="weather as WeatherData" />
     </div>
-    <div>{{JSON.stringify(weather)}}</div>
-    
   </div>
 </template>
 

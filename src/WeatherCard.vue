@@ -6,10 +6,6 @@ import { WeatherData } from './types'
 
 const props = defineProps<{ weather: WeatherData }>()
 const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.weather.weather[0].icon}@2x.png`)
-
-watchEffect(() => {
-  console.log('WeatherCard props.weather', props.weather)
-})
 </script>
 
 <template>
@@ -39,7 +35,6 @@ watchEffect(() => {
       </div>
     </template>
   </Card>
-
 </template>
 
 <style scoped>
