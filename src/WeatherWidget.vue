@@ -30,8 +30,10 @@ onMounted(async () => {
     <div v-if="loading">Loading...</div>
     <div v-else-if="error">{{ error }}</div>
     <div v-else>
-      <WeatherCard :weather="weather as WeatherData"/>
+      <WeatherCard :weather="weather as WeatherData" />
     </div>
+    <div>{{JSON.stringify(weather)}}</div>
+    
   </div>
 </template>
 

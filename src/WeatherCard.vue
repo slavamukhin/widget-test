@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import Card from 'primevue/card'
 import Divider from 'primevue/divider'
 import { WeatherData } from './types'
 
 const props = defineProps<{ weather: WeatherData }>()
 const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.weather.weather.icon}@2x.png`)
+
+watchEffect(() => {
+  console.log('WeatherCard props.weather', props.weather)
+})
 </script>
 
 <template>
