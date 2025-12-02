@@ -7,7 +7,7 @@ import SettingsButton from './SettingsButton.vue'
 import SettingCard from './SettingCard.vue'
 import { CityResult, WeatherData } from './types'
 
-const weather = ref<WeatherData>()
+const weatherList = ref<WeatherData[]>()
 const loading = ref(true)
 const error = ref<string | null>(null)
 const settingsVisible = ref(false)
@@ -22,7 +22,7 @@ onMounted(async () => {
     console.log("User location:", loc)
 
     if (loc.lat && loc.lon) {
-      weather.value = await fetchWeatherByCoords(loc.lat, loc.lon)
+      weatherList.value?.push(await fetchWeatherByCoords(loc.lat, loc.lon))
     }
   } catch (err: any) {
     error.value = err?.message ?? "Ошибка при получении данных"
@@ -37,7 +37,9 @@ onMounted(async () => {
     <div v-if="loading">Loading...</div>
     <div v-else-if="error">{{ error }}</div>
     <div v-else class="weather-widget">
-      <WeatherCard :weather="weather as WeatherData" />
+      <div class="weather-card-wrapper" v-for="weather in weatherList">
+        <WeatherCard :weather="weather as WeatherData" />
+      </div>
       <SettingsButton v-if="!settingsVisible" @click="settingsVisible = true" />
       <SettingCard v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" />
     </div>
@@ -54,5 +56,18 @@ onMounted(async () => {
 
 .weather-widget {
   position: relative;
+}
+
+.weather-card-wrapper {
+  margin-bottom: 10px;
+}
+
+.weather-card-wrapper:last-child {
+  margin-bottom: 0;
+}
+
+
+* {
+  box-sizing: border-box;
 }
 </style>
