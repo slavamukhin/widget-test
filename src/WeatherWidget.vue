@@ -3,11 +3,19 @@ import { ref, onMounted } from 'vue'
 import { getUserLocation } from './getUserLocation'
 import { fetchWeatherByCoords } from './weatherApi'
 import WeatherCard from './WeatherCard.vue'
+import SettingsButton from './SettingsButton.vue'
+import SettingCard from './SettingCard.vue'
 import { WeatherData } from './types'
 
 const weather = ref<WeatherData>()
 const loading = ref(true)
 const error = ref<string | null>(null)
+const settingsVisible = ref(false)
+
+const onSettingsClick = () => {
+  console.log('Settings button clicked!')
+  // здесь можно открыть настройки виджета
+}
 
 onMounted(async () => {
   try {
@@ -31,6 +39,24 @@ onMounted(async () => {
     <div v-else-if="error">{{ error }}</div>
     <div v-else>
       <WeatherCard :weather="weather as WeatherData" />
+      <SettingsButton v-if="!settingsVisible" @click="settingsVisible = true" />
+      <SettingCard v-if="settingsVisible" @close="settingsVisible = false" />
     </div>
   </div>
 </template>
+
+<style scoped>
+.weather-widget-wrapper {
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 260px;
+  font-family: sans-serif;
+  position: relative;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+</style>
