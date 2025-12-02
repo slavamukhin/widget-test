@@ -8,11 +8,9 @@ const emit = defineEmits<{
 
 <template>
   <div class="setting-card">
-    <!-- Заголовок с SVG крестиком -->
     <div class="card-header">
       <div class="card-title">Settings</div>
       <button class="close-button" @click="$emit('close')">
-        <!-- SVG крестик -->
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
@@ -20,7 +18,6 @@ const emit = defineEmits<{
       </button>
     </div>
 
-    <!-- Контент настроек -->
     <div class="card-content">
       <div>Настройка 1</div>
       <div>Настройка 2</div>
@@ -31,16 +28,15 @@ const emit = defineEmits<{
 
 <style scoped>
 .setting-card {
-  position: absolute; /* поверх WeatherCard */
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  z-index: 10;
 }
 
 .card-header {

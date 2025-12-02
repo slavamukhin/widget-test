@@ -40,7 +40,6 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${weather.
 
 <style scoped>
 .weather-card {
-  width: 250px;
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: #dfdfdf;
