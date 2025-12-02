@@ -7,7 +7,7 @@ import { WeatherData } from './types'
 
 const weather = ref<WeatherData>()
 const loading = ref(true)
-const error = ref<string>('')
+const error = ref<string | null>(null)
 
 onMounted(async () => {
   try {
