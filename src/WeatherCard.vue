@@ -35,10 +35,10 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
 
 <style scoped>
 .weather-card {
-  width: 250px;
+  width: 200px;
   padding: 1rem;
   border-radius: 0.5rem;
-  background-color: #f9f9f9;
+  background-color: #dfdfdf;
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   font-family: sans-serif;
@@ -79,7 +79,7 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
 
 .card-divider {
   height: 1px;
-  background-color: #ddd;
+  background-color: #c7c7c7;
   margin: 0.5rem 0;
 }
 
