@@ -43,11 +43,9 @@ window.addEventListener('beforeunload', saveToLS)
 onMounted(async () => {
   try {
     if (cityList.value.length === 0) {
-      // нет городов → спрашиваем геолокацию
       const loc = await getUserLocation()
       const w = await loadWeather(loc.lat as number, loc.lon as number)
 
-      // сохраняем как первый город
       cityList.value.push({
         name: w.name,
         country: w.sys.country,
@@ -55,7 +53,6 @@ onMounted(async () => {
         lon: w.coord.lon
       })
     } else {
-      // города есть → грузим все
       for (const city of cityList.value) {
         await loadWeather(city.lat, city.lon)
       }
@@ -97,3 +94,28 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', saveToLS))
     </div>
   </div>
 </template>
+
+<style scoped>
+.weather-widget-wrapper {
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 260px;
+  font-family: sans-serif;
+}
+
+.weather-widget {
+  position: relative;
+}
+
+.weather-card-wrapper {
+  margin-bottom: 10px;
+}
+
+.weather-card-wrapper:last-child {
+  margin-bottom: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+</style>
