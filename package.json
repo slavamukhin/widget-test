@@ -8,15 +8,11 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://<username>.github.io/weather-widget/",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@primeuix/themes": "^2.0.1",
-    "primeicons": "^7.0.0",
-    "primevue": "^4.5.0",
     "vue": "^3.5.25"
   },
   "devDependencies": {

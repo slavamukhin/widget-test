@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
-import Card from 'primevue/card'
-import Divider from 'primevue/divider'
+import { computed } from 'vue'
 import { WeatherData } from './types'
 
 const props = defineProps<{ weather: WeatherData }>()
@@ -9,32 +7,30 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
 </script>
 
 <template>
-  <Card class="weather-card">
-    <template #title>
-      <div class="card-title">{{ props.weather.name }}, {{ props.weather.sys.country }}</div>
-    </template>
+  <div class="weather-card">
+    <div class="card-title">
+      {{ props.weather.name }}, {{ props.weather.sys.country }}
+    </div>
 
-    <template #content>
-      <div class="card-weather">
-        <div class="card-weather-temp">
-          <img :src="weatherIcon" alt="weather icon" />
-          <div class="temp-data">{{ props.weather.main.temp }}°C</div>
-        </div>
-
-        <div class="card-weather-feel">
-          Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather[0].main }}, {{ props.weather.weather[0].description }}
-        </div>
-
-        <Divider />
-
-        <div class="card-weather-params">
-          <div>Wind: {{ props.weather.wind.speed }} m/s</div>
-          <div>Pressure: {{ props.weather.main.pressure }} hPa</div>
-          <div>Visibility: {{ (props.weather.visibility / 1000).toFixed(1) }} km</div>
-        </div>
+    <div class="card-weather">
+      <div class="card-weather-temp">
+        <img :src="weatherIcon" alt="weather icon" />
+        <div class="temp-data">{{ props.weather.main.temp }}°C</div>
       </div>
-    </template>
-  </Card>
+
+      <div class="card-weather-feel">
+        Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather[0].main }}, {{ props.weather.weather[0].description }}
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-weather-params">
+        <div>Wind: {{ props.weather.wind.speed }} m/s</div>
+        <div>Pressure: {{ props.weather.main.pressure }} hPa</div>
+        <div>Visibility: {{ (props.weather.visibility / 1000).toFixed(1) }} km</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -42,6 +38,10 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
   width: 250px;
   padding: 1rem;
   border-radius: 0.5rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-family: sans-serif;
 }
 
 .card-title {
@@ -77,6 +77,12 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
   color: #555;
 }
 
+.card-divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 0.5rem 0;
+}
+
 .card-weather-params {
   display: flex;
   flex-direction: column;
@@ -85,3 +91,4 @@ const weatherIcon = computed(() => `https://openweathermap.org/img/wn/${props.we
   color: #333;
 }
 </style>
+
