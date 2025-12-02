@@ -5,7 +5,6 @@ export interface UserLocation {
 }
 
 export async function getUserLocation(): Promise<UserLocation> {
-  // 1) HTML5 Geolocation API
   const geoResult = await tryGeolocation();
 
   if (geoResult) {
@@ -24,7 +23,6 @@ export async function getUserLocation(): Promise<UserLocation> {
     source: 'ipapi',
   };
 }
-
 
 function tryGeolocation(): Promise<{ lat: number; lon: number } | null> {
   return new Promise(resolve => {
