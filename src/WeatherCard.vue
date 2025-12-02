@@ -14,27 +14,32 @@ watchEffect(() => {
 
 <template>
   <Card class="weather-card">
-    <div class="card-title">{{ props.weather.name }}, {{ props.weather.sys.country }}</div>
+    <template #title>
+      <div class="card-title">{{ props.weather.name }}, {{ props.weather.sys.country }}</div>
+    </template>
 
-    <div class="card-weather">
-      <div class="card-weather-temp">
-        <img :src="weatherIcon" alt="weather icon" />
-        <div class="temp-data">{{ props.weather.main.temp }}°C</div>
+    <template #content>
+      <div class="card-weather">
+        <div class="card-weather-temp">
+          <img :src="weatherIcon" alt="weather icon" />
+          <div class="temp-data">{{ props.weather.main.temp }}°C</div>
+        </div>
+
+        <div class="card-weather-feel">
+          Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather[0].description }}
+        </div>
+
+        <Divider />
+
+        <div class="card-weather-params">
+          <div>Wind: {{ props.weather.wind.speed }} m/s</div>
+          <div>Pressure: {{ props.weather.main.pressure }} hPa</div>
+          <div>Visibility: {{ (props.weather.visibility / 1000).toFixed(1) }} km</div>
+        </div>
       </div>
-
-      <div class="card-weather-feel">
-        Feels like {{ props.weather.main.feels_like }}°C. {{ props.weather.weather[0].description }}
-      </div>
-
-      <Divider />
-
-      <div class="card-weather-params">
-        <div>Wind: {{ props.weather.wind.speed }} m/s</div>
-        <div>Pressure: {{ props.weather.main.pressure }} hPa</div>
-        <div>Visibility: {{ (props.weather.visibility / 1000).toFixed(1) }} km</div>
-      </div>
-    </div>
+    </template>
   </Card>
+
 </template>
 
 <style scoped>
