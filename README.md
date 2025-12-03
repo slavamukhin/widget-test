@@ -9,5 +9,12 @@
 # Usage
 ```html
   <weather-widget></weather-widget>
+  <weather-widget namespace="seccond" max="3"></weather-widget>
   <script type="text/javascript" src="https://slavamukhin.github.io/widget-test/weather-widget.iife.js"></script>
+```
+```ts
+  interface Widget {
+    namespace?: string; // Unique namespace within the app for localStorage separation, 'default' by defult
+    max?: number | string; // Max cities, Infinity by default
+  }
 ```

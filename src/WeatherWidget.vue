@@ -9,6 +9,7 @@ import { CityResult, WeatherData, CityList } from './types'
 
 const props = defineProps<{
   max?: number | string
+  namespace?: string
 }>()
 
 const getMaxCount = (): number => {
@@ -18,19 +19,21 @@ const getMaxCount = (): number => {
   return Math.round(num)
 }
 
+const getNameSpace = (): string => {
+  return props.namespace != null ? props.namespace : 'default'
+}
+
 console.log('props', props)
-const CYTY_LIST = 'Weather-widgetCYTY_LIST'
-const cityList = ref<CityList[]>(JSON.parse(localStorage.getItem(CYTY_LIST) ?? '[]'))
+const NAMESPACE = `Weather-widgetCYTY_LIST-${getNameSpace()}`
+const cityList = ref<CityList[]>(JSON.parse(localStorage.getItem(NAMESPACE) ?? '[]'))
 const weatherList = ref<WeatherData[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
 const settingsVisible = ref(false)
 const maxCount = getMaxCount()
 
-
-
 const saveToLS = (): void => {
-  localStorage.setItem(CYTY_LIST, JSON.stringify(cityList.value))
+  localStorage.setItem(NAMESPACE, JSON.stringify(cityList.value))
 }
 
 const loadWeather = async (lat: number, lon: number) => {
