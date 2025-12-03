@@ -16,6 +16,7 @@ const emit = defineEmits<{
 const removeCity = (city: CityList) => {
   emit('remove', city)
 }
+console.log('cityList', props.cityList)
 </script>
 
 <template>
@@ -37,7 +38,7 @@ const removeCity = (city: CityList) => {
       <div
         class="city-item"
         v-for="city in cityList"
-        :key="city.name + city.country + city.lat + city.lon"
+        :key="city.id"
       >
         <div class="drag-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

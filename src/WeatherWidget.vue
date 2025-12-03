@@ -27,31 +27,22 @@ const loadWeather = async (lat: number, lon: number) => {
 const onSelectedCity = async (city: CityResult) => {
   const exists = cityList.value.some(c => c.lat === city.lat && c.lon === city.lon)
   if (!exists) {
-    cityList.value.push({
+    const c = {
       name: city.name,
       country: city.country,
       lat: city.lat,
       lon: city.lon
-    })
+    }
 
-     await loadWeather(city.lat, city.lon)
+     const w = await loadWeather(city.lat, city.lon)
+     cityList.value.push({...c, id: w.id})
   }
 }
 
 const onRemoveCity = (data: CityResult): void => {
-  console.log(data)
-  cityList.value = cityList.value.filter(city =>
-    city.country !== data.country &&
-    city.name !== data.name &&
-    city.lat !== data.lat &&
-    city.lon !== data.lon
-  )
-  weatherList.value = weatherList.value.filter(weather =>
-    weather.name !== data.name &&
-    weather.sys.country !== data.country &&
-    weather.coord.lat !== data.lat &&
-    weather.coord.lon !== data.lon
-  )
+  console.log('cityToRemove', data)
+  cityList.value = cityList.value.filter(city => city.id !== data.id)
+  weatherList.value = weatherList.value.filter(weather => weather.id !== data.id)
 }
 
 window.addEventListener('beforeunload', saveToLS)
@@ -81,6 +72,7 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => window.removeEventListener('beforeunload', saveToLS))
+console.log('weatherList', weatherList.value)
 </script>
 
 <template>
@@ -92,7 +84,7 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', saveToLS))
       <div
         class="weather-card-wrapper"
         v-for="weather in weatherList"
-        :key="weather.name + weather.sys.country + weather.coord.lat"
+        :key="weather.id"
       >
         <WeatherCard :weather="weather" />
       </div>

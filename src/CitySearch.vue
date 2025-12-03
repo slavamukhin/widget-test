@@ -65,7 +65,7 @@ function selectCity(city: CityResult) {
     <ul v-if="showList && suggestions.length" class="suggestions">
       <li
         v-for="city in suggestions"
-        :key="city.lat + city.lon"
+        :key="city.lat + city.lon + city.name"
         @click="selectCity(city)"
         class="suggestion-item"
       >

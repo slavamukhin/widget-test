@@ -1,4 +1,5 @@
 export interface WeatherData {
+  id: number
   name: string
   sys: { country: string }
   weather: { description: string, icon: string, main: string }[]
@@ -14,6 +15,7 @@ export interface CityResult {
   lon: number
   country: string
   state?: string
+  id?: number
 }
 
 export type CityList = Omit<CityResult, 'state'>
