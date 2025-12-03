@@ -57,7 +57,8 @@ onMounted(async () => {
         name: w.name,
         country: w.sys.country,
         lat: w.coord.lat,
-        lon: w.coord.lon
+        lon: w.coord.lon,
+        id: w.id
       })
     } else {
       for (const city of cityList.value) {
