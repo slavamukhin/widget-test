@@ -46,13 +46,13 @@ const loadWeather = async (lat: number, lon: number) => {
 
 const onSelectedCity = async (city: CityResult): Promise<void> => {
   if (cityList.value.length >= maxCount) {
-    console.log(`Невозможно добавить больше ${maxCount}`)
+    (`Невозможно добавить больше ${maxCount}`)
     return
   }
 
   const w = await loadWeather(city.lat, city.lon)
   if (w == null) return
-  
+
   cityList.value.push({
     name: city.name,
     country: city.country,
