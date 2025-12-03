@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue'
 import CitySearch from './CitySearch.vue'
 import type { CityList, CityResult } from './types'
 
 const props = defineProps<{
   cityList: CityList[]
-  maxCount: number
 }>()
 
 const emit = defineEmits<{

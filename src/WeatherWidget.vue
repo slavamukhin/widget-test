@@ -110,7 +110,7 @@ console.log('weatherList', weatherList.value)
 
       <SettingsButton v-if="!settingsVisible" @click="settingsVisible = true" />
 
-      <SettingCard :max-count="maxCount" :city-list="cityList" v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" @remove="onRemoveCity" />
+      <SettingCard :city-list="cityList" v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" @remove="onRemoveCity" />
     </div>
   </div>
 </template>
