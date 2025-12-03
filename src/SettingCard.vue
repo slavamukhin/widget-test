@@ -5,6 +5,7 @@ import type { CityList, CityResult } from './types'
 
 const props = defineProps<{
   cityList: CityList[]
+  maxCount: number
 }>()
 
 const emit = defineEmits<{
@@ -13,7 +14,7 @@ const emit = defineEmits<{
   (e: 'remove', city: CityList): void
 }>()
 
-const removeCity = (city: CityList) => {
+const removeCity = (city: CityList): void => {
   emit('remove', city)
 }
 console.log('cityList', props.cityList)

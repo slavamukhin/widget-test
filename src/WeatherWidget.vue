@@ -7,12 +7,27 @@ import SettingsButton from './SettingsButton.vue'
 import SettingCard from './SettingCard.vue'
 import { CityResult, WeatherData, CityList } from './types'
 
+const props = defineProps<{
+  max?: number | string
+}>()
+
+const getMaxCount = (): number => {
+  if (props.max == null) return Infinity
+  const num = Number(props.max)
+  if (isNaN(num) || num <= 0) return 1
+  return Math.round(num)
+}
+
+console.log('props', props)
 const CYTY_LIST = 'Weather-widgetCYTY_LIST'
 const cityList = ref<CityList[]>(JSON.parse(localStorage.getItem(CYTY_LIST) ?? '[]'))
 const weatherList = ref<WeatherData[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
 const settingsVisible = ref(false)
+const maxCount = getMaxCount()
+
+
 
 const saveToLS = (): void => {
   localStorage.setItem(CYTY_LIST, JSON.stringify(cityList.value))
@@ -24,7 +39,10 @@ const loadWeather = async (lat: number, lon: number) => {
   return w
 }
 
-const onSelectedCity = async (city: CityResult) => {
+const onSelectedCity = async (city: CityResult): Promise<void> => {
+  if (cityList.value.length >= maxCount) {
+    console.log(`Невозможно добавить больше ${maxCount}`)
+  }
   const exists = cityList.value.some(c => c.lat === city.lat && c.lon === city.lon)
   if (!exists) {
     const c = {
@@ -92,7 +110,7 @@ console.log('weatherList', weatherList.value)
 
       <SettingsButton v-if="!settingsVisible" @click="settingsVisible = true" />
 
-      <SettingCard :city-list="cityList" v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" @remove="onRemoveCity" />
+      <SettingCard :max-count="maxCount" :city-list="cityList" v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" @remove="onRemoveCity" />
     </div>
   </div>
 </template>

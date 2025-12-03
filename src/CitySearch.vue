@@ -40,7 +40,7 @@ async function fetchCities(q: string) {
 
 const debouncedSearch = debounce(fetchCities, 400)
 
-function selectCity(city: CityResult) {
+function selectCity(city: CityResult): void {
   emit("select", city)
   query.value = ''
   showList.value = false
