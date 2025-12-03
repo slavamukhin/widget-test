@@ -23,7 +23,6 @@ const getNameSpace = (): string => {
   return props.namespace != null ? props.namespace : 'default'
 }
 
-console.log('props', props)
 const NAMESPACE = `Weather-widgetCYTY_LIST-${getNameSpace()}`
 const cityList = ref<CityList[]>(JSON.parse(localStorage.getItem(NAMESPACE) ?? '[]'))
 const weatherList = ref<WeatherData[]>([])
@@ -38,6 +37,9 @@ const saveToLS = (): void => {
 
 const loadWeather = async (lat: number, lon: number) => {
   const w = await fetchWeatherByCoords(lat, lon)
+  const isExistCity = weatherList.value.some(city => city.id === w.id)
+
+  if (isExistCity) return
   weatherList.value.push(w)
   return w
 }
@@ -47,22 +49,20 @@ const onSelectedCity = async (city: CityResult): Promise<void> => {
     console.log(`Невозможно добавить больше ${maxCount}`)
     return
   }
-  const exists = cityList.value.some(c => c.lat === city.lat && c.lon === city.lon)
-  if (!exists) {
-    const c = {
-      name: city.name,
-      country: city.country,
-      lat: city.lat,
-      lon: city.lon
-    }
 
-     const w = await loadWeather(city.lat, city.lon)
-     cityList.value.push({...c, id: w.id})
-  }
+  const w = await loadWeather(city.lat, city.lon)
+  if (w == null) return
+  
+  cityList.value.push({
+    name: city.name,
+    country: city.country,
+    lat: city.lat,
+    lon: city.lon,
+    id: w.id
+  })
 }
 
 const onRemoveCity = (data: CityResult): void => {
-  console.log('cityToRemove', data)
   cityList.value = cityList.value.filter(city => city.id !== data.id)
   weatherList.value = weatherList.value.filter(weather => weather.id !== data.id)
 }
@@ -73,7 +73,7 @@ onMounted(async () => {
   try {
     if (cityList.value.length === 0) {
       const loc = await getUserLocation()
-      const w = await loadWeather(loc.lat as number, loc.lon as number)
+      const w = await loadWeather(loc.lat as number, loc.lon as number) as WeatherData
 
       cityList.value.push({
         name: w.name,
@@ -95,7 +95,6 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => window.removeEventListener('beforeunload', saveToLS))
-console.log('weatherList', weatherList.value)
 </script>
 
 <template>

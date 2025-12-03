@@ -15,7 +15,6 @@ const emit = defineEmits<{
 const removeCity = (city: CityList): void => {
   emit('remove', city)
 }
-console.log('cityList', props.cityList)
 </script>
 
 <template>
