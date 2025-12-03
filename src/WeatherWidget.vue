@@ -39,6 +39,7 @@ const onSelectedCity = async (city: CityResult) => {
 }
 
 const onRemoveCity = (data: CityResult): void => {
+  console.log(data)
   cityList.value = cityList.value.filter(city =>
     city.country !== data.country &&
     city.name !== data.name &&
