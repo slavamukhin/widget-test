@@ -45,6 +45,7 @@ const loadWeather = async (lat: number, lon: number) => {
 const onSelectedCity = async (city: CityResult): Promise<void> => {
   if (cityList.value.length >= maxCount) {
     console.log(`Невозможно добавить больше ${maxCount}`)
+    return
   }
   const exists = cityList.value.some(c => c.lat === city.lat && c.lon === city.lon)
   if (!exists) {
