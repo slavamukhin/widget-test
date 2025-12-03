@@ -18,3 +18,4 @@
     max?: number | string; // Max cities, Infinity by default
   }
 ```
+If you tried to add more than maxCount ```ts console.log(`Невозможно добавить больше ${maxCount}`)```
