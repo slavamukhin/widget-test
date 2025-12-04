@@ -10,10 +10,32 @@ const emit = defineEmits<{
   (e: 'close'): void
   (e: 'select', city: CityResult): void
   (e: 'remove', city: CityList): void
+  (e: 'updateOrder', newOrder: CityList[]): void
 }>()
 
 const removeCity = (city: CityList): void => {
   emit('remove', city)
+}
+
+let draggedIndex: number | null = null
+
+const onDragStart = (index: number) => {
+  draggedIndex = index
+}
+
+const onDragOver = (index: number, event: DragEvent) => {
+  event.preventDefault()
+}
+
+const onDrop = (index: number) => {
+  if (draggedIndex === null || draggedIndex === index) return
+
+  const newOrder = [...props.cityList]
+  const moved = newOrder.splice(draggedIndex, 1)[0]
+  newOrder.splice(index, 0, moved)
+
+  emit('updateOrder', newOrder)
+  draggedIndex = null
 }
 </script>
 
@@ -35,8 +57,12 @@ const removeCity = (city: CityList): void => {
     <div class="city-list">
       <div
         class="city-item"
-        v-for="city in cityList"
+        v-for="(city, index) in cityList"
         :key="city.id"
+        draggable="true"
+        @dragstart="onDragStart(index)"
+        @dragover="onDragOver(index, $event)"
+        @drop="onDrop(index)"
       >
         <div class="drag-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

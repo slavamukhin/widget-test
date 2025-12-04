@@ -67,6 +67,33 @@ const onRemoveCity = (data: CityResult): void => {
   weatherList.value = weatherList.value.filter(weather => weather.id !== data.id)
 }
 
+const onUpdateOrder = (list: CityList[]): void => {
+  const newCityList: CityList[] = []
+  const newWeatherList: WeatherData[] = []
+
+  for (let i = 0; i < list.length; i++) {
+    const id = list[i].id
+
+    for (let j = 0; j < cityList.value.length; j++) {
+      if (cityList.value[j].id === id) {
+        newCityList.push(cityList.value[j])
+        break
+      }
+    }
+
+    for (let k = 0; k < weatherList.value.length; k++) {
+      if (weatherList.value[k].id === id) {
+        newWeatherList.push(weatherList.value[k])
+        break
+      }
+    }
+  }
+
+  cityList.value = newCityList
+  weatherList.value = newWeatherList
+}
+
+
 window.addEventListener('beforeunload', saveToLS)
 
 onMounted(async () => {
@@ -113,7 +140,7 @@ onBeforeUnmount(() => window.removeEventListener('beforeunload', saveToLS))
 
       <SettingsButton v-if="!settingsVisible" @click="settingsVisible = true" />
 
-      <SettingCard :city-list="cityList" v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" @remove="onRemoveCity" />
+      <SettingCard :city-list="cityList" v-if="settingsVisible" @close="settingsVisible = false" @select="onSelectedCity" @remove="onRemoveCity" @update-order="onUpdateOrder" />
     </div>
   </div>
 </template>
